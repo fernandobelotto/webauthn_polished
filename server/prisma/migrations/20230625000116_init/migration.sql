@@ -18,5 +18,15 @@ CREATE TABLE "Authenticator" (
     CONSTRAINT "Authenticator_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- CreateTable
+CREATE TABLE "Authentication" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "signature" TEXT NOT NULL,
+    "authenticatorId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    CONSTRAINT "Authentication_authenticatorId_fkey" FOREIGN KEY ("authenticatorId") REFERENCES "Authenticator" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Authentication_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

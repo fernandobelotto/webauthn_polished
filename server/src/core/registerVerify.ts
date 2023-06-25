@@ -1,8 +1,10 @@
-import { VerifiedRegistrationResponse, verifyRegistrationResponse } from "@simplewebauthn/server";
+import {
+  VerifiedRegistrationResponse,
+  verifyRegistrationResponse,
+} from "@simplewebauthn/server";
 import { Request, Response } from "express";
 import { prisma } from "../clients/prisma";
 import { origin, rpID } from "../constants";
-
 
 export const registerVerify = async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
@@ -26,18 +28,25 @@ export const registerVerify = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(400).send({ error: error.message });
+    return res.status(400).send({ error: "something is wrong" });
   }
 
   const { verified } = verification;
   const { registrationInfo } = verification;
+  const credentialPublicKey = registrationInfo?.credentialPublicKey
+  const credentialID = registrationInfo?.credentialID
+  const counter = registrationInfo?.counter
 
-  const { credentialPublicKey, credentialID, counter } = registrationInfo;
+  
+  if (!credentialPublicKey || !credentialID || counter === undefined) {
+    console.error("credentialPublicKey, credentialID, or counter is missing");
+    return res.status(400).send({ error: "something is wrong" });
+  }
 
   await prisma.authenticator.create({
     data: {
-      credentialID: credentialID.toString(),
-      credentialPublicKey: credentialPublicKey.toString(),
+      credentialID: Buffer.from(credentialID).toString("base64"),
+      credentialPublicKey: Buffer.from(credentialPublicKey).toString('base64'),
       counter,
       credentialBackedUp: false,
       credentialDeviceType: "unknown",

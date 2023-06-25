@@ -1,14 +1,8 @@
 import { Router } from "express";
-import {
-  authOptions,
-  authVerify,
-} from "../core/auth";
-import {
-  registerOptions,
-} from "../core/registerOptions";
-import {
-  registerVerify,
-} from "../core/registerVerify";
+import { authVerify } from "../core/authVerify";
+import { authOptions } from "../core/authOptions";
+import { registerOptions } from "../core/registerOptions";
+import { registerVerify } from "../core/registerVerify";
 
 export const authRoutes = Router();
 
