@@ -3,14 +3,13 @@ import { Request, Response } from "express";
 import { prisma } from "../clients/prisma";
 import { rpID, rpName } from "../constants";
 
-
 export const registerOptions = async (req: Request, res: Response) => {
   const user = await prisma.user.findUnique({
     where: {
       email: req.body.email,
     },
   });
-  
+
   if (user) {
     res.status(404).json({ message: "User already registered" });
   }
@@ -40,6 +39,6 @@ export const registerOptions = async (req: Request, res: Response) => {
       currentChallenge: options.challenge,
     },
   });
-
+  
   res.json(options);
 };
