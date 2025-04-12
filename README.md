@@ -2,6 +2,9 @@
 
 A comprehensive WebAuthn (Passkey) authentication implementation featuring a web application, mobile app, and backend server. This project demonstrates secure passwordless authentication using the WebAuthn standard across multiple platforms.
 
+![CleanShot 2025-04-12 at 10 29 12@2x](https://github.com/user-attachments/assets/5a39d409-fe74-4ef9-b9e6-628fc89b88ab)
+
+
 ## Project Structure
 
 The project consists of three main components:
