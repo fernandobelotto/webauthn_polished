@@ -1,0 +1,16 @@
+{
+  "name": "webauthn_polished",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "server",
+    "mobile"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn workspace vite-chakra dev\" \"yarn workspace express-ts-template dev\" \"yarn workspace mobile start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+} 
